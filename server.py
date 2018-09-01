@@ -23,8 +23,8 @@ print(host)
 print('Waiting for connections...')
 
 # Accept incoming connection.
-conn, addr = s.accept()
-print(addr, 'Has connected.')
+connection, address = s.accept()
+print(address, 'Has connected.')
 
 # Get file to send. If none is specified from user, use source_file from config.
 filename = input(str('Enter the filename (if left empty, settings will be used): '))
@@ -34,5 +34,5 @@ if not filename:
 # Send file content.
 file = open(filename, 'rb')
 file_data = file.read(1024)
-conn.send(file_data)
+connection.send(file_data)
 print('Data has been transmitted.')
