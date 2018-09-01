@@ -19,8 +19,8 @@ s = socket.socket()
 host = socket.gethostname()
 s.bind((host, port))
 s.listen(1)
-print(host)
-print('Waiting for connections...')
+print('--\nHost: \033[94m{}\033[0m'.format(host))
+print('--\nWaiting for connections...')
 
 # Accept incoming connection.
 connection, address = s.accept()

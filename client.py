@@ -16,7 +16,7 @@ destionation_file = config['DEFAULT']['DestinationFile']
 
 # Ask for host details and open a connection.
 s = socket.socket()
-host = input(str('Enter the host address of the server: '))
+host = input(str('Enter the \033[94mhost\033[0m address of the server: '))
 s.connect((host, port))
 print('Connected to host...')
 
