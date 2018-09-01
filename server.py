@@ -1,18 +1,37 @@
 import socket
+import configparser
+import sys
 
-port = 8080
 
+# Read config settings.
+config = configparser.ConfigParser()
+config.read('config.ini')
+if not 'Port' in config['DEFAULT']:
+    print('Config is corrupted. Exiting...')
+    sys.exit(0)
+
+# Extract settings.
+port = int(config['DEFAULT']['Port'])
+source_file = config['DEFAULT']['SourceFile']
+
+# Open socket and listen for incoming connections.
 s = socket.socket()
 host = socket.gethostname()
-port = 8080
 s.bind((host, port))
 s.listen(1)
 print(host)
 print('Waiting for connections...')
+
+# Accept incoming connection.
 conn, addr = s.accept()
 print(addr, 'Has connected.')
 
-filename = input(str('Enter the filename: '))
+# Get file to send. If none is specified from user, use source_file from config.
+filename = input(str('Enter the filename (if left empty, settings will be used): '))
+if not filename:
+    filename = source_file
+
+# Send file content.
 file = open(filename, 'rb')
 file_data = file.read(1024)
 conn.send(file_data)
